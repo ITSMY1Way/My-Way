@@ -127,3 +127,8 @@ char *p = "abcdef"; */
 	 return 0; 
  }
  
+
+
+
+
+ p->letf=q->left;
