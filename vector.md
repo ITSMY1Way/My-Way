@@ -37,8 +37,6 @@ vector<int> v4{10, 1};//v4有2个，值分别是1和10
 //如果使用的是花括号，表述成想要列表初始化该vector对象。
 ```
 
-
-
 ```cpp
 
 #include <iostream>
@@ -272,5 +270,45 @@ void PrintVectorFor(const Vector<T>& v)
 	cout << endl;
 }
 
+```
+
+### vector失效
+
+https://blog.csdn.net/weixin_42678507/article/details/88952862
+
+> - 在向容器添加元素后，如果储存空间未重新分配，指向插入位置之前的元素的迭代器、指针、引用有效，但指向插入位置之后的将会失效。
+> - 在从容器删除元素之后，指向被删元素之前元素的迭代器、引用、指针仍有效。尾后迭代器也就失效。
+
+```cpp
+   1.遍历时插入元素
+　　　　iter=v.insert(iter,*iter);//想要指向下一个元素，就要跳过当前和被添加的元素
+　　　　iter+=2;
+　　2.   遍历时删除元素
+　　　　注意：erase函数返回的就是删除之后的元素的迭代器
+　　　　iter=iter.erase(iter);
+```
+
+```cpp
+// insert/erase导致的迭代器失效
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main()
+{
+int a[] = { 1, 2, 3, 4 };
+vector<int> v(a, a + sizeof(a) / sizeof(int));
+// 使用find查找3所在位置的iterator
+vector<int>::iterator pos = find(v.begin(), v.end(), 3);
+// 删除pos位置的数据，导致pos迭代器失效。
+v.erase(pos);
+cout << *pos << endl; // 此处会导致非法访问
+// 在pos位置插入数据，导致pos迭代器失效。
+// insert会导致迭代器失效，是因为insert可
+// 能会导致增容，增容后pos还指向原来的空间，而原来的空间已经释放了。
+pos = find(v.begin(), v.end(), 3);
+v.insert(pos, 30);
+cout << *pos << endl; // 此处会导致非法访问
+return 0; }
 ```
 

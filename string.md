@@ -7,17 +7,29 @@
 >
 > 5. 这个类独立于所使用的编码来处理字节:如果用来处理多字节或变长字符(如UTF-8)的序列，这个 类的所有成员(如长度或大小)以及它的迭代器，将仍然按照字节(而不是实际编码的字符)来操作。
 
-> 1. string是表示字符串的字符串类 
-> 2. 该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。 
-> 3. string在底层实际是：basic_string模板类的别名，typedef basic_string<char, char_traits, allocator>  string; 
+> 1. 该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。 
 >
-> 4. 不能操作多字节或者变长字符的序列
+> 2. string在底层实际是：basic_string模板类的别名，
+>
+>    `typedef basic_string<char, char_traits, allocator>  string;` 
+>
+> 3. 不能操作多字节或者变长字符的序列
 >
 > **在使用string类时，必须包含头文件以及using namespace std;** 
 
 > 当把string对象和字符字面值及字字符串面值混在一条语句中使用时，必须确保每个+的两侧的运算对象至少有一个是string
 >
 > `string s2 = (s1 + ",") + "world";` 这样是可以的。  
+
+**string类对象的常见构造**
+
+| 函数名称                         | 功能说明                             |
+| -------------------------------- | ------------------------------------ |
+| string()                         | 构造空的string类对象，即空字符串     |
+| string(const char* s)            | 用C—string来构造string对象           |
+| string(size_t n, char c)         | string类对象中包含n个字符c           |
+| string(const string&s)           | 拷贝构造函数                         |
+| string(const string&s, size_t n) | 用s中的前n个字符构造新的string类对象 |
 
 ```cpp
 void TestString()
@@ -619,6 +631,7 @@ void PrintStringFor(const String& s)
 	}
 	cout << endl;
 }
+// https://blog.csdn.net/weixin_42678507/article/details/88822032
 ```
 
 ### 写时拷贝
