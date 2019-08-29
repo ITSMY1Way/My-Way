@@ -174,7 +174,6 @@ private:
 public:
     int _a;
 };
-
 class B : public A
 {
 public:
@@ -184,16 +183,13 @@ void Test()
 {
     B b;
     b._a = 1;
-
 }
 //or    //将A类虚继承E类，但是E类的构造函数是带private属性的，A类还是E类的友元。
 //如果我们让A类虚继承E类，根据虚继承的特性，虚基类的构造函数由最终的子类负责构造，此时E类的构造函数虽然是私有的，但是A类是E类的友元，所以可以调用E类的构造函数完成初始化。
 //B类如果要想继承A类，它必须能够调用E虚基类的构造函数来完成初始化，这是不可能的，因为它不是E类的友元！因此，我们的A类也就终于成为了一个无法继承的类，并且我们还可以在A类外实例化对象，可以正常使用。
-
 #pragma once
 #include<iostream>
 using namespace std;
-
 class E
 {
 private:
@@ -201,15 +197,12 @@ private:
     E()
     {}
 };
-
 class A : virtual public E
 {
 public:
     A()
     {}
-
 };
-
 //class B : public A
 //{
 //public:
@@ -218,17 +211,12 @@ public:
 //
 //  }
 //};
-
 void Test()
 {
     //B a;
       A a；
-
 }
-
  ———————————————————————————————————————————————————————————————————————————————————————————————
-
- 
 class NonInherit
 {
 public:
